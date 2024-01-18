@@ -1,0 +1,210 @@
+package linkedlist;
+
+import java.util.Scanner;
+
+public class EmployeeLinkedList {
+	static Scanner sc = new Scanner(System.in);
+	Node root;
+	void createLinkedList() {
+		root = null;
+	}
+	
+	void insert(Employee emp) {
+		Node n = new Node(emp);
+		
+		if(root==null) {
+			root = n;
+		}
+		else {
+			Node t = root;
+			while(t.next!=null){
+				t = t.next;
+			}
+			t.next = n;
+			
+		}
+		System.out.println("Inserted...");
+	}
+	
+	void display() {
+		if(root == null) {
+			System.out.println("Empty List");
+		}
+		else {
+			Node t = root;
+			while(t!=null) {
+				System.out.println(t.emp.getEmployee_id()+" | "+t.emp.getName()+" | "+t.emp.getGender()+" | "+t.emp.getSalary());
+				t = t.next;
+			}
+		}
+	}
+	
+	void search(int empId) {
+		if(root == null) {
+			System.out.println("List is Empty");
+		}
+		else {
+			Node t = root;
+			while(t!=null && t.emp.getEmployee_id()!=empId) {
+				t = t.next;
+			}
+			if(t==null) {
+				System.out.println("No record found");
+			}
+			else {
+				System.out.println("Record found for employee Id "+empId+" is: "+t.emp);
+				
+			}
+		}
+	}
+	
+	void deleteId(int key) {
+		if(root == null) {
+			System.out.println("Empty List");
+		}
+		else {
+			Node t = root;
+			Node t2 = root;
+			while(t!=null && t.emp.getEmployee_id()!=key) {
+				t2 = t;
+				t = t.next;
+			}
+			if(t==null) {
+				System.out.println("Key not found:");
+			}
+			else {
+				System.out.println("Key found in list");
+				if(t == root) {
+					root = root.next;
+				}
+				else if(t.next == null) {
+					t2.next = null;
+				}
+				else {
+					t2.next = t.next;
+				}
+				System.out.println("Deleted "+t.emp);
+			}
+		}
+	}
+	
+	void update(int key) {
+		
+		if(root == null) {
+			System.out.println("Empty List");
+		}
+		else {
+			Node t = root;
+			while(t!=null && t.emp.getEmployee_id()!=key) {
+				t = t.next;
+			}
+			if(t==null) {
+				System.out.println("No record found");
+			}
+			else if(t.emp.getEmployee_id() == key) {
+//				int ch;
+//				Scanner  sc  = new Scanner(System.in);
+				System.out.println("Record found");
+				int ch;
+				do {
+					System.out.println("What you want to update\n1.Name\n2.Gender\n3.Salary\n0.Exit:");
+					ch  =sc.nextInt();
+					switch (ch) {
+						case 1:
+							System.out.println("Enter Name:");
+//							String empname = sc.next();
+							t.emp.setName(sc.next());
+							break;
+							
+						case 2:
+							System.out.println("Enter Gender:");
+							t.emp.setGender(sc.next());
+							break;
+							
+						case 3:
+							System.out.println("Enter Salary:");
+							t.emp.setSalary(sc.nextInt());
+							break;
+	
+						case 0:
+							System.out.println("Closing...");
+							break;
+							
+						default:
+							System.out.println("Wrong input");
+							break;
+					}
+				}while(ch!=0);
+//				sc.close();
+				
+			}
+		}
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int choice;
+		
+//		Scanner sc= new Scanner(System.in);
+		EmployeeLinkedList obj = new EmployeeLinkedList();
+		
+		obj.createLinkedList();
+		
+		do {
+			System.out.println("\nEnter your choice: \n1.Insert \n2.Display \n3.Search \n4.Update \n5.Delete \n0.Exit: ");
+			choice = sc.nextInt();
+			switch (choice) {
+			case 1:
+				System.out.println("Enter Employee ID");
+				int employee_id = sc.nextInt();
+				System.out.println("Enter Employee Name");
+				String name = sc.next();
+				System.out.println("Enter Employee Gender");
+				String gender = sc.next();
+				System.out.println("Enter Employee Salary");
+				int salary = sc.nextInt();
+				
+				obj.insert(new Employee(employee_id, salary, name, gender));
+				break;
+
+			case 2:
+				obj.display();
+				break;
+				
+			case 3:
+				int empId;
+				System.out.println("Enter Employee which you want to search");
+				empId = sc.nextInt();
+				obj.search(empId);
+				break;
+				
+			case 4:
+				System.out.println("Enter Employee which you want to update");
+				int uempId = sc.nextInt();
+				
+//				int ch = sc.nextInt();
+				obj.update(uempId);
+				break;
+			
+			case 5:
+				System.out.println("Enter Employee which you want to Delete");
+				int dempId = sc.nextInt();
+				
+//				choice = sc.nextInt();
+				obj.deleteId(dempId);
+				break;
+				
+			case 0: 
+				System.out.println("Closing...");
+				break;
+				
+			default:
+				System.out.println("Wrong Input");
+				break;
+			}
+		}while(choice!=0);
+		
+//		sc.close();
+	}
+
+}

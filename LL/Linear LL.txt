@@ -1,0 +1,197 @@
+package linkedlist;
+
+import java.util.Scanner;
+
+public class LinearLinkedListExample {
+	Node root;
+	
+	void createLinkedList() {
+		root = null;
+	}
+	
+	void insertLeft(int data) {
+		Node n = new Node(data);
+		if(root == null) {
+			root = n;
+		}
+		else {
+			n.next = root;
+			root = n;
+		}
+	}
+	
+	void insertRight(int data) {
+		Node n = new Node(data);
+		if(root == null) {
+			root = n;
+		}
+		else {
+			Node t = root;
+			while(t.next!=null) {
+				t = t.next;
+			}
+			t.next = n;
+		}
+	}
+	
+	void  deleteLeft() {
+		Node t;
+		if(root == null) {
+			System.out.println("Empty list");
+		}
+		else {
+			t = root;
+			root = root.next;
+			System.out.println("Deleted data: "+t.data);
+		}
+	}
+	
+	void deleteRight() {
+		if(root == null) {
+			System.out.println("Empty list");
+		}
+		else {
+			Node t, t2;
+			t=t2=root;
+			while(t.next!=null) {
+				t2 = t;
+				t = t.next;
+			}
+			if(t == root) {
+				root = null;
+			}
+			else {
+				t2.next = null;
+			}
+			System.out.println("Deleted data:"+	t.data);
+		}
+	}
+	
+	void printLinkedList() {
+		if(root == null) {
+			System.out.println("List is Empty");
+		}
+		else {
+			Node t = root;
+			while(t!=null) {
+				System.out.print("|"+t.data+"| ->");
+				t = t.next;
+			}
+		}
+	}
+	
+	void search(int no) {
+		if(root == null) {
+			System.out.println("List is Empty");
+		}
+		else {
+			boolean flag = false;
+//			int i = 0;
+			Node t = root;
+			while(t!=null) {
+				t = t.next;
+//				i++;
+				if(t.data==no) {
+					flag = true;
+					break;
+				}
+			}
+			
+			if(flag == true) {
+//				System.out.println("Element found at "+(i+1)+" position");.
+				System.out.println("Element found");
+			}
+			else {
+				System.out.println("Element not found");
+			}
+		}
+		
+	}
+	
+	void deleteParticularKey(int key) {
+		
+		if(root == null) {
+			System.out.println("List is Empty");
+		}
+		else {
+			Node t=root;
+	        Node t2=root;
+	        while(t!=null && t.data!=key)
+	        {
+	            t2=t;
+	            t=t.next;
+	        }
+	        if(t==null)
+	             System.out.println(key+" not found");
+	        else if(t.data==key)
+	           {
+	               System.out.println(key+" found int list");
+	               if(t==root)//case1
+	                   root=root.next;
+	               else if(t.next==null)//case 2
+	                   t2.next=null;
+	               else//case 3
+	               {
+	                   t2.next=t.next;
+	               }
+	               System.out.println("Deleted:"+t.data);
+	          }
+		}
+		
+	}
+	
+	public static void main(String[] args) {
+		int choice, data;
+		Scanner sc= new Scanner(System.in);
+		LinearLinkedListExample obj = new LinearLinkedListExample();
+		
+		obj.createLinkedList();
+		
+		do {
+			System.out.println("\nEnter your choice: \n1.Insert from left\n2.Insert from right\n3.Delete from left\n4.Delete from right\n5.Display\n6.Search\n0.Exit: ");
+			choice = sc.nextInt();
+			switch (choice) {
+			case 1:
+				System.out.println("Enter data");
+				data = sc.nextInt();
+				obj.insertLeft(data);
+				break;
+				
+			case 2:
+				System.out.println("Enter data");
+				data = sc.nextInt();
+				obj.insertRight(data);
+				break;
+				
+			case 3:
+				obj.deleteLeft();
+				break;
+			
+			case 4:
+				obj.deleteRight();
+				break;
+			
+			case 5:
+				obj.printLinkedList();
+				break;
+				
+			case 6:
+				int no;
+				System.out.println("Enter number which want to search");
+				no = sc.nextInt();
+				obj.search(no);
+				break;
+				
+			case 0:
+				System.out.println("Closing menu...");
+				break;
+				
+			default:
+				System.out.println("Wrog Input!");
+				break;
+			}
+		}while(choice!=0);
+		
+		sc.close();
+	}
+}

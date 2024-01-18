@@ -1,0 +1,19 @@
+static void SelectionSort(int a[ ])
+{
+ int i,j,min,pos;
+ for(i=0;i<a.length-1;i++)
+  {
+   min=a[i];
+   pos=i;
+   for( j=i+1;j<a.length;j++)
+    {
+      if(a[j]<min)
+      {
+        min=a[j];
+        pos=j;
+      }
+   }
+   a[pos]=a[i];
+   a[i]=min;
+}
+}

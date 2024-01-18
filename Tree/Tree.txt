@@ -1,0 +1,188 @@
+package tree;
+
+import java.util.Scanner;
+
+public class TreeExample {
+	DNode root;
+	int count =0;
+	
+	void createTree() {
+		root = null;
+	}
+	
+	void insertData(DNode r, DNode n) {
+		if(root == null) {
+			root = n;
+		}
+		else{
+			if(n.data < r.data) {
+				if(r.left == null) {
+					r.left = n;
+				}
+				else {
+					insertData(r.left, n);
+				}
+			}
+			else {
+				if(r.right == null) {
+					r.right = n;
+				}
+				else {
+					insertData(r.right, n);
+				}
+			}
+		}
+	}
+	
+	void inorder(DNode r) {
+		if(r!=null) {
+			inorder(r.left);
+			System.out.print(r.data+"\t");
+			inorder(r.right);
+		}
+	}
+	
+	void preorder(DNode r) {
+		if(r!=null) {
+			System.out.print(r.data+"\t");
+			preorder(r.left);
+			preorder(r.right);
+		}
+	}
+	
+	void postorder(DNode r) {
+		if(r!=null) {
+			postorder(r.left);
+			postorder(r.right);
+			System.out.print(r.data+"\t");
+		}
+	}
+	
+	int getHeight(DNode r)
+    {
+        if(r==null)
+            return 0;
+        else
+        {
+            int LeftHeight=getHeight(r.left);
+            int RightHeight=getHeight(r.right);
+            int max = Math.max(LeftHeight, RightHeight)+1;
+            return max;
+        }
+    }
+	
+	boolean balance(DNode r) {
+		if(r==null)
+			return true;
+			
+        else
+        {
+        	int right=getHeight(r.right);
+            int left=getHeight(r.left);
+            if(Math.abs(left - right)<=1)//+1,0,-1
+                return true;
+            else
+                return false;
+        }
+	}
+	
+	void leaf(DNode r) {
+		count++;
+		if(r==null) {
+			System.out.println("Empty");
+			
+		}
+	   
+			
+		else {
+			  
+	          int LeftHeight=getHeight(r.left);
+	          int RightHeight=getHeight(r.right);
+//	          int abs = Math.abs(LeftHeight) - Math.abs(RightHeight);
+//	          
+//	          if(abs > 1) {
+//	          	System.out.println("Unbalance tree");
+//	          }
+//	          else {
+//	          	System.out.println("balance");
+//	          }
+//	         return 0;
+//      	if(r.left == null && r.right==null) {
+//				count++;
+//			}
+//	          System.out.println(count);
+	      }
+		System.out.println(count);
+	}
+	public static void main(String[] args) {
+		 TreeExample t=new TreeExample();
+		 DNode n1=new DNode(100);
+         t.insertData(t.root,n1);
+         DNode n2=new DNode(50);
+         t.insertData(t.root,n2);
+         DNode n3=new DNode(20);
+         t.insertData(t.root,n3);
+         DNode n4=new DNode(120);
+         t.insertData(t.root,n4);
+         
+         DNode n5=new DNode(10);
+         t.insertData(t.root,n5);
+         System.out.println("In");
+         t.inorder(t.root);
+         System.out.println();
+         t.preorder(t.root);
+         System.out.println();
+         t.postorder(t.root);
+         
+         int height  = t.getHeight(t.root)-1;
+		 System.out.println("\nHeight is:"+height);
+		 
+		 System.out.println("Is the tree balance:"+t.balance(t.root));
+		 
+		 
+		 System.out.println("Leaf");
+		 t.leaf(t.root);
+         
+//      int choice, data;
+// 		Scanner sc= new Scanner(System.in);
+// 		TreeExample obj = new TreeExample();
+// 		
+// 		do {
+//			System.out.println("\nEnter your choice: \n1.Insert\n2.Inorder\n3.Preorder\n4.PostOrder\n0.Exit: ");
+//			choice = sc.nextInt();
+//			switch (choice) {
+//			case 1:
+//				System.out.println("Enter data");
+//				data = sc.nextInt();
+//				obj.insertData(obj.root, new DNode(data));
+//				break;
+//				
+//			case 2:
+//				System.out.println("Inorder");
+//				obj.inorder(obj.root);
+//				break;
+//				
+//			case 3:
+//				System.out.println("Preorder");
+//				obj.preorder(obj.root);
+//				break;
+//				
+//			case 4:
+//				System.out.println("Postorder");
+//				obj.postorder(obj.root);
+//				break;
+//			
+//			case 0:
+//				System.out.println("Closing menu...");
+//				break;
+//				
+//			default:
+//				System.out.println("Wrog Input!");
+//				break;
+//			}
+//		}while(choice!=0);
+//		
+//		sc.close();
+         
+	}
+}

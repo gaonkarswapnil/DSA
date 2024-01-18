@@ -1,0 +1,14 @@
+package tree;
+
+public class DNode {
+	int data;
+	DNode right;;
+	DNode left;
+	
+	DNode(int data) {
+		this.data = data;
+		this.right = null;
+		this.left = null;
+	}
+	
+}
